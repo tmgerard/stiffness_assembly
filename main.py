@@ -7,7 +7,7 @@ from assembler import Assembler
 from structure_types import StructureType
 
 
-def main():
+def continuous_beam_example():
 
     # create node list
     nodes = Node2DList()
@@ -69,4 +69,4 @@ def main():
       for row in k_global]))
 
 if __name__ == "__main__":
-    main()
+    continuous_beam_example()
