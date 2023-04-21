@@ -1,5 +1,9 @@
-from node2D import Node2D
 import numpy as np
+import math
+
+
+from node2D import Node2D
+from vector2D import Vector2D
 
 
 class Beam2D:
@@ -84,3 +88,46 @@ class Beam2D:
         k[5][5] = k4
         
         return k
+    
+    def k_global(self):
+        """
+        Returns the beam element stiffness matrix in global coordinages
+        """
+        # It would probably be better to code the global matrix
+        # using the analytical solution of the transform, but
+        # this should be ok for small structures. It might only
+        # be an issue with large structures that have many elements.
+        T = self.__get_transform()
+        temp = np.matmul(np.transpose(T), self.k_local)
+        return np.matmul(temp, T)
+    
+    def __get_transform(self):
+        """
+        Returns the transformation matrix needed to convert the local
+        stiffness matrix in local coordinates to global coordinates
+        """
+
+        vec: Vector2D
+        vec = Vector2D(1, 0)  # unit vector along global x-axis
+        angle = vec.angle_to(self.end.origin - self.start.origin)
+
+        T = np.array([
+            [0 for i in range(self.__MAX_DOFS)]
+            for i in range(self.__MAX_DOFS)
+        ])
+
+        c = math.cos(angle)
+        s = math.cos(angle)
+
+        T[0][0] = c
+        T[0][1] = s
+        T[1][0] = -s
+        T[1][1] = c
+        T[2][2] = 1
+        T[3][3] = c
+        T[3][4] = s
+        T[4][3] = -s
+        T[4][4] = c
+        T[5][5] = 1
+
+        return T
