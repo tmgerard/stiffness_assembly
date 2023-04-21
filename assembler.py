@@ -1,3 +1,6 @@
+import numpy as np
+
+
 from beam_element import Beam2D
 from node2D import Node2D
 from structure import Structure
@@ -20,10 +23,7 @@ class Assembler:
         num_dofs = max(max(x) for x in self.__dof_map)
 
         # initialize global stiffness matrix
-        k_global = [
-            [0 for i in range(num_dofs)]
-            for i in range(num_dofs)
-        ]
+        k_global = np.zeros((num_dofs, num_dofs))
 
         element: Beam2D
         for element in self.structure.elements:
