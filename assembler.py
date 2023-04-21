@@ -35,6 +35,7 @@ class Assembler:
                 for j in range(len(con_array)):
                     if not con_array[i] == 0 and not con_array[j] == 0:
                         k_global[con_array[i] - 1][con_array[j] - 1] += k_element[i][j]
+                        # the load vector should also be assembled here
         
         return k_global
     
