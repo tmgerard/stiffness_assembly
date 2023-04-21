@@ -11,3 +11,16 @@ class Point2D:
     
     def distance_to(self, other: 'Point2D') -> float:
         return math.sqrt((other.x - self.x) ** 2 + (other.y - self.y) ** 2)
+    
+    def __eq__(self, other):
+        if self is other:
+            return True
+
+        if not isinstance(other, Point2D):
+            return False
+
+        return math.isclose(self.x, other.x, rel_tol=1e-09, abs_tol=0.0) and \
+               math.isclose(self.y, other.y, rel_tol=1e-09, abs_tol=0.0)
+
+    def __str__(self):
+        return f'({self.x}, {self.y})'
