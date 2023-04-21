@@ -1,5 +1,7 @@
 import math
 
+from vector2D import Vector2D
+
 
 class Point2D:
     """
@@ -11,6 +13,12 @@ class Point2D:
     
     def distance_to(self, other: 'Point2D') -> float:
         return math.sqrt((other.x - self.x) ** 2 + (other.y - self.y) ** 2)
+    
+    def __sub__(self, other: 'Point2D') -> Vector2D:
+        return Vector2D(
+            self.x - other.x,
+            self.y - other.y
+        )
     
     def __eq__(self, other):
         if self is other:
