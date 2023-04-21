@@ -28,7 +28,7 @@ class Assembler:
         element: Beam2D
         for element in self.structure.elements:
             # calculate the elements stiffness matrix
-            k_element = element.k_local()
+            k_element = element.k_global()
             # obtain the element connectivity array
             con_array = self.get_connectivity_array(element)
             for i in range(len(con_array)):
