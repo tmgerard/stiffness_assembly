@@ -55,10 +55,7 @@ class Beam2D:
         in the beam's local coordinates.
         """
         # initialize the 6x6 stiffness matrix
-        k = np.array([
-            [0 for i in range(self.__MAX_DOFS)] 
-            for i in range(self.__MAX_DOFS)
-            ])
+        k = np.zeros((self.__MAX_DOFS, self.__MAX_DOFS))
         
         k1 = self.area * self.elastic_mod / self.length
         k2 = 12 * self.elastic_mod * self.inertia_z / self.length ** 3
@@ -98,7 +95,7 @@ class Beam2D:
         # this should be ok for small structures. It might only
         # be an issue with large structures that have many elements.
         T = self.__get_transform()
-        temp = np.matmul(np.transpose(T), self.k_local)
+        temp = np.matmul(np.transpose(T), self.k_local())
         return np.matmul(temp, T)
     
     def __get_transform(self):
@@ -111,13 +108,23 @@ class Beam2D:
         vec = Vector2D(1, 0)  # unit vector along global x-axis
         angle = vec.angle_to(self.end.origin - self.start.origin)
 
-        T = np.array([
-            [0 for i in range(self.__MAX_DOFS)]
-            for i in range(self.__MAX_DOFS)
-        ])
+        T = np.zeros((self.__MAX_DOFS, self.__MAX_DOFS))
 
         c = math.cos(angle)
-        s = math.cos(angle)
+
+        # correct any rounding errors
+        if math.isclose(c, 0.0, rel_tol=1e-09, abs_tol=0.0):
+            c = 0.0
+        if math.isclose(c, 1.0, rel_tol=1e-09, abs_tol=0.0):
+            c = 1.0
+        
+        s = math.sin(angle)
+
+        # correct any rounding errors
+        if math.isclose(s, 0.0, rel_tol=1e-09, abs_tol=0.0):
+            s = 0.0
+        if math.isclose(s, 1.0, rel_tol=1e-09, abs_tol=0.0):
+            s = 1.0
 
         T[0][0] = c
         T[0][1] = s
