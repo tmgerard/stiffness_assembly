@@ -2,9 +2,58 @@ from point2D import Point2D
 from node2D import Node2D
 from node2D_list import Node2DList
 from beam_element import Beam2D
+from bar_element import Bar2D
 from structure import Structure
 from assembler import Assembler
 from structure_types import StructureType
+
+
+def truss_example():
+    
+    # nodes
+    nodes = Node2DList()
+    nodes.append(Node2D(Point2D(0, 0)))
+    nodes.append(Node2D(Point2D(100, 0)))
+    nodes.append(Node2D(Point2D(0, 100)))
+
+    # assign support conditions
+    nodes[0].set_constraints(False, True, False)
+    nodes[1].set_constraints(False, False, False)
+
+    # check that node ids assigned properly
+    for node in nodes:
+        print("id: " + str(node.get_ID()))
+    
+    elastic_modulus = 100
+    area = 10
+
+    # create element list
+    elements = [
+        Bar2D(nodes[0], nodes[1], area, elastic_modulus),
+        Bar2D(nodes[1], nodes[2], area, elastic_modulus),
+        Bar2D(nodes[2], nodes[0], area, elastic_modulus)
+    ]
+
+    elements[0].set_ID(0)
+    elements[1].set_ID(1)
+    elements[2].set_ID(2)
+
+    structure = Structure(StructureType.PLANE_TRUSS, nodes, elements)
+
+    map = structure.get_dof_map()
+
+    print()
+    print("Degree of Freedom Map")
+    print('\n'.join([' '.join(['{:4}'.format(item) for item in row]) 
+      for row in map]))
+    
+    assembler = Assembler(structure)
+    k_global = assembler.assemble()
+
+    print()
+    print("Global Stiffness Matrix")
+    print('\n'.join(['   '.join(['{:.1f}'.format(item) for item in row]) 
+      for row in k_global]))
 
 
 def continuous_beam_example():
@@ -117,4 +166,4 @@ def frame_example():
 
 
 if __name__ == "__main__":
-    frame_example()
+    truss_example()
