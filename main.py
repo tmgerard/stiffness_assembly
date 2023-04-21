@@ -65,7 +65,7 @@ def continuous_beam_example():
 
     print()
     print("Global Stiffness Matrix")
-    print('\n'.join([' '.join(['{:8}'.format(item) for item in row]) 
+    print('\n'.join(['   '.join(['{:.1f}'.format(item) for item in row]) 
       for row in k_global]))
     
 def frame_example():
@@ -112,7 +112,7 @@ def frame_example():
 
   print()
   print("Global Stiffness Matrix")
-  print('\n'.join([' '.join(['{:8}'.format(item) for item in row]) 
+  print('\n'.join([' '.join(['{:2f}'.format(item) for item in row]) 
     for row in k_global]))
 
 
