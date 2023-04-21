@@ -1,4 +1,5 @@
 from node2D import Node2D
+import numpy as np
 
 
 class Bar2D:
@@ -36,15 +37,15 @@ class Bar2D:
     def set_ID(self, id):
         self.__ID = id
     
-    def k_local(self) -> list:
+    def k_local(self):
         """
         Returns the 2 x 2 stiffness matrix representing the bar element
         in the bar's local coordinates.
         """
-        k = [
+        k = np.array([
             [0 for i in range(2)]
             for i in range(2)
-        ]
+        ])
 
         k1 = self.area * self.elastic_mod / self.length
 

@@ -1,4 +1,5 @@
 from node2D import Node2D
+import numpy as np
 
 
 class Beam2D:
@@ -44,16 +45,16 @@ class Beam2D:
     def set_ID(self, id):
         self.__ID = id
     
-    def k_local(self) -> list:
+    def k_local(self):
         """
         Returns the 6 x 6 stiffness matrix representing the beam element
         in the beam's local coordinates.
         """
         # initialize the 6x6 stiffness matrix
-        k = [
+        k = np.array([
             [0 for i in range(self.__MAX_DOFS)] 
             for i in range(self.__MAX_DOFS)
-            ]
+            ])
         
         k1 = self.area * self.elastic_mod / self.length
         k2 = 12 * self.elastic_mod * self.inertia_z / self.length ** 3
