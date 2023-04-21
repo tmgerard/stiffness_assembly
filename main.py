@@ -70,40 +70,33 @@ def continuous_beam_example():
     
 def frame_example():
   """
-  Example 5.3 from "Matrix Structural Analysis: Second Edition"
-  by William McGuire
+  Example 16.4 from "Fundamentals of Structural Analysis"
+  by Kenneth M. Leet
   """
 
   # nodes
   nodes = Node2DList()
   nodes.append(Node2D(Point2D(0, 0)))
-  nodes.append(Node2D(Point2D(0, 5)))
-  nodes.append(Node2D(Point2D(7.416, 8)))
-  nodes.append(Node2D(Point2D(11.416, 5)))
-  nodes.append(Node2D(Point2D(11.416, 0)))
+  nodes.append(Node2D(Point2D(360, 480)))
+  nodes.append(Node2D(Point2D(960, 480)))
 
   # assign support conditions
   nodes[0].set_constraints(False, False, False)  # fixed
-  nodes[4].set_constraints(False, False, False)  # fixed
+  nodes[2].set_constraints(False, False, False)  # fixed
 
-  elastic_mod = 200_000
-  area_1 = 4_000
-  inertia_1 = 50_000
-  area_2 = 6_000
-  inertia_2 = 200_000_000
+  elastic_mod = 1_000_000
+  area = 0.72
+  inertia = 24
 
   # create element list
   elements = [
-      Beam2D(nodes[0], nodes[1], area_1, inertia_1, elastic_mod),  # ab
-      Beam2D(nodes[1], nodes[2], area_2, inertia_2, elastic_mod),  # bc
-      Beam2D(nodes[2], nodes[3], area_1, inertia_1, elastic_mod),  # cd
-      Beam2D(nodes[3], nodes[4], area_1, inertia_1, elastic_mod)   # de
+      Beam2D(nodes[0], nodes[1], area, inertia, elastic_mod),  # ab
+      Beam2D(nodes[1], nodes[2], area, inertia, elastic_mod),  # bc
+
   ]
 
   elements[0].set_ID(0)
   elements[1].set_ID(1)
-  elements[2].set_ID(2)
-  elements[3].set_ID(3)
 
   structure = Structure(StructureType.PLANE_FRAME,nodes, elements)
 
@@ -124,4 +117,4 @@ def frame_example():
 
 
 if __name__ == "__main__":
-    continuous_beam_example()
+    frame_example()
