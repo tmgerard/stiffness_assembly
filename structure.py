@@ -1,11 +1,11 @@
-from node2D import Node2D
+import abc
+
+
 from node2D_list import Node2DList
-from beam_element import Beam2D
-from structure_types import StructureType
 import dof_map
 
 
-class Structure:
+class Structure(metaclass=abc.ABCMeta):
     """
     The Structure class holds information to describe the physical
     representation of a structure.
@@ -17,8 +17,7 @@ class Structure:
     """
     elements = []
 
-    def __init__(self, structure_type: StructureType, nodes: Node2DList, elements: list) -> None:
-        self.__structure_type = structure_type
+    def __init__(self, nodes: Node2DList, elements: list) -> None:
         self.nodes = nodes
         self.elements = elements
     
@@ -33,20 +32,10 @@ class Structure:
     def get_num_nodes(self):
         return len(self.nodes)
     
-    @property
-    def max_dofs_per_node(self):
-        """
-        Returns the maximum dofs available per node in based on the type of structure.
-        """
-        if self.structure_type == StructureType.PLANE_TRUSS:
-            return 2  # translation x, y
-        elif self.__structure_type == StructureType.PLANE_FRAME:
-            return 3  # translation x, y and rotation z
-        elif self.__structure_type == StructureType.SPACE_TRUSS:
-            return 3  # translation x, y, z
-        else:  # Space Frame
-            return 6  # translation and rotation x, y, z
+    @abc.abstractproperty
+    def dofs_per_node(self):
+        raise NotImplementedError()
     
-    @property
-    def structure_type(self):
-        return self.__structure_type
+    @abc.abstractproperty
+    def nodes_per_element(self):
+        raise NotImplementedError()

@@ -44,7 +44,7 @@ class Assembler:
         nodes = element.get_nodes()
         node: Node2D
         for node in nodes: # columns in map are node ids
-            for dof in range(self.structure.max_dofs_per_node): # rows in map are dofs
+            for dof in range(self.structure.dofs_per_node): # rows in map are dofs
                 con_array.append(self.__dof_map[dof][node.get_ID()])
         
         return con_array

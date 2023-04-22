@@ -23,14 +23,14 @@ class DOF_Mapper:
         
         dof_map = [
             [0 for i in range(num_nodes)]
-            for i in range(structure.max_dofs_per_node)
+            for i in range(structure.dofs_per_node)
         ]
 
         node: Node2D
         node_index = 0
         eq_no = 1
         for node in structure.nodes:
-            for dof in range(structure.max_dofs_per_node):
+            for dof in range(structure.dofs_per_node):
                 if node.get_dof(dof):  # the degree of freedom is active
                     dof_map[dof][node_index] = eq_no
                     eq_no += 1

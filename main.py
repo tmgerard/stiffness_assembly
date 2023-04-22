@@ -4,6 +4,8 @@ from node2D_list import Node2DList
 from beam_element import Beam2D
 from bar_element import Bar2D
 from structure import Structure
+from plane_frame import PlaneFrame
+from plane_truss import PlaneTruss
 from assembler import Assembler
 from structure_types import StructureType
 
@@ -38,7 +40,7 @@ def truss_example():
     elements[1].set_ID(1)
     elements[2].set_ID(2)
 
-    structure = Structure(StructureType.PLANE_TRUSS, nodes, elements)
+    structure = PlaneTruss(nodes, elements)
 
     map = structure.get_dof_map()
 
@@ -100,7 +102,7 @@ def continuous_beam_example():
     elements[4].set_ID(4)
     elements[5].set_ID(5)
 
-    structure = Structure(StructureType.PLANE_FRAME,nodes, elements)
+    structure = PlaneFrame(nodes, elements)
 
     map = structure.get_dof_map()
 
@@ -147,7 +149,7 @@ def frame_example():
   elements[0].set_ID(0)
   elements[1].set_ID(1)
 
-  structure = Structure(StructureType.PLANE_FRAME,nodes, elements)
+  structure = PlaneFrame(nodes, elements)
 
   map = structure.get_dof_map()
 
