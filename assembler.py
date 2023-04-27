@@ -37,6 +37,19 @@ class Assembler:
                         k_global[con_array[i] - 1][con_array[j] - 1] += k_element[i][j]        
         return k_global
     
+    def assemble_load_vector(self) -> list:
+        """
+        Assemble the system load vector and return the result
+        """
+        # find the number of active degrees of freedom
+        num_dofs = max(max(x) for x in self.__dof_map)
+
+        # initialize the system load vector
+        load_vec = np.zeros(num_dofs)
+
+        # need to finish inmplementing load vector assembly
+        pass
+    
     def get_connectivity_array(self, element: Beam2D):
         con_array = []
         nodes = element.get_nodes()
