@@ -1,5 +1,6 @@
 from structure import Structure
 from node2D_list import Node2DList
+from node2D_load import Node2DLoad
 
 
 class PlaneTruss(Structure):
@@ -9,6 +10,9 @@ class PlaneTruss(Structure):
 
     def __init__(self, nodes: Node2DList, elements: list) -> None:
         super().__init__(nodes, elements)
+    
+    def add_node_load(self, node_id: int, fx: float, fy: float) -> None:
+        self.node_loads.append(Node2DLoad(self.nodes[node_id], fx, fy, 0))
     
     @property
     def dofs_per_node(self):

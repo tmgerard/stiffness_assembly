@@ -41,6 +41,7 @@ def truss_example():
     elements[2].set_ID(2)
 
     structure = PlaneTruss(nodes, elements)
+    structure.add_node_load(1, -10, 5)
 
     map = structure.get_dof_map()
 
@@ -150,6 +151,8 @@ def frame_example():
   elements[1].set_ID(1)
 
   structure = PlaneFrame(nodes, elements)
+
+  structure.add_node_load(1, -10, 5, 0)
 
   map = structure.get_dof_map()
 
