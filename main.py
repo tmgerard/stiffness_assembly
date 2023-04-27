@@ -51,7 +51,7 @@ def truss_example():
       for row in map]))
     
     assembler = Assembler(structure)
-    k_global = assembler.assemble()
+    k_global = assembler.assemble_k_global()
 
     print()
     print("Global Stiffness Matrix")
@@ -113,7 +113,7 @@ def continuous_beam_example():
       for row in map]))
     
     assembler = Assembler(structure)
-    k_global = assembler.assemble()
+    k_global = assembler.assemble_k_global()
 
     print()
     print("Global Stiffness Matrix")
@@ -162,7 +162,7 @@ def frame_example():
     for row in map]))
   
   assembler = Assembler(structure)
-  k_global = assembler.assemble()
+  k_global = assembler.assemble_k_global()
 
   print()
   print("Global Stiffness Matrix")

@@ -15,7 +15,7 @@ class Assembler:
         self.structure = structure
         self.__dof_map = structure.get_dof_map()
     
-    def assemble(self) -> list:
+    def assemble_k_global(self) -> list:
         """
         Assemble the global stiffness matrix and return the result
         """
@@ -34,9 +34,7 @@ class Assembler:
             for i in range(len(con_array)):
                 for j in range(len(con_array)):
                     if not con_array[i] == 0 and not con_array[j] == 0:
-                        k_global[con_array[i] - 1][con_array[j] - 1] += k_element[i][j]
-                        # the load vector should also be assembled here
-        
+                        k_global[con_array[i] - 1][con_array[j] - 1] += k_element[i][j]        
         return k_global
     
     def get_connectivity_array(self, element: Beam2D):
