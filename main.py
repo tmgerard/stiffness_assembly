@@ -41,7 +41,7 @@ def truss_example():
     elements[2].set_ID(2)
 
     structure = PlaneTruss(nodes, elements)
-    structure.add_node_load(1, -10, 5)
+    structure.add_node_load(2, -10, 5)
 
     map = structure.get_dof_map()
 
@@ -57,6 +57,13 @@ def truss_example():
     print("Global Stiffness Matrix")
     print('\n'.join(['   '.join(['{:.1f}'.format(item) for item in row]) 
       for row in k_global]))
+    
+    load_vector = assembler.assemble_load_vector()
+
+    print()
+    print("Load Vector")
+    for load in load_vector:
+        print(load)
 
 
 def continuous_beam_example():
