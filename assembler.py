@@ -3,6 +3,7 @@ import numpy as np
 
 from beam_element import Beam2D
 from node2D import Node2D
+from node2D_load import Node2DLoad
 from structure import Structure
 
 
@@ -47,8 +48,16 @@ class Assembler:
         # initialize the system load vector
         load_vec = np.zeros(num_dofs)
 
-        # need to finish inmplementing load vector assembly
-        pass
+        # assemble the load vector
+        load: Node2DLoad
+        for load in self.structure.node_loads:
+            for dof in range(self.structure.dofs_per_node): # The dof map will only have rows
+                                                            # equal to the number of dofs per node
+                eq_no = self.__dof_map[dof][load.node.get_ID]
+                if not eq_no == 0:  # an equation number of zero denotes an inactive dof
+                    load_vec[eq_no - 1] += load[dof]
+
+        return load_vec
     
     def get_connectivity_array(self, element: Beam2D):
         con_array = []
