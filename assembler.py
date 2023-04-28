@@ -53,7 +53,7 @@ class Assembler:
         for load in self.structure.node_loads:
             for dof in range(self.structure.dofs_per_node): # The dof map will only have rows
                                                             # equal to the number of dofs per node
-                eq_no = self.__dof_map[dof][load.node.get_ID]
+                eq_no = self.__dof_map[dof][load.node.get_ID()]
                 if not eq_no == 0:  # an equation number of zero denotes an inactive dof
                     load_vec[eq_no - 1] += load[dof]
 
