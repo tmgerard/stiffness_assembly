@@ -46,14 +46,14 @@ Snippt from [assember.py](assembler.py) using the connectivity array to build th
 
 ```python
 element: Beam2D
-        for element in self.structure.elements:
-            # calculate the elements stiffness matrix
-            k_element = element.k_global()
-            # obtain the element connectivity array
-            con_array = self.get_connectivity_array(element)
-            for i in range(len(con_array)):
-                for j in range(len(con_array)):
-                    if not con_array[i] == 0 and not con_array[j] == 0:
-                        k_global[con_array[i] - 1][con_array[j] - 1] += k_element[i][j]        
-        return k_global
+for element in self.structure.elements:
+    # calculate the elements stiffness matrix
+    k_element = element.k_global()
+    # obtain the element connectivity array
+    con_array = self.get_connectivity_array(element)
+    for i in range(len(con_array)):
+        for j in range(len(con_array)):
+            if not con_array[i] == 0 and not con_array[j] == 0:
+                k_global[con_array[i] - 1][con_array[j] - 1] += k_element[i][j]        
+return k_global
 ```
