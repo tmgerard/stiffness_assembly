@@ -2,7 +2,9 @@ from beam_element import Beam2D
 
 
 class UniformFixedEndForces:
-
+    """
+    Uniform load applied to the full length of a beam element.
+    """
     def __init__(self, beam: Beam2D, load: float) -> None:
         self.beam = beam
         self.load = load
