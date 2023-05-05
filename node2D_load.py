@@ -11,6 +11,11 @@ class Node2DLoad:
         self.__loads[1] = force_y
         self.__loads[2] = moment_z
     
+    def set_loads(self, force_x: float, force_y: float, moment_z: float):
+        self.__loads[0] = force_x
+        self.__loads[1] = force_y
+        self.__loads[2] = moment_z
+    
     def set_node(self, node: Node2D):
         self.node = node
     
