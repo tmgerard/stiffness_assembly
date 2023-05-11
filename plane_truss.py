@@ -6,7 +6,7 @@ from node2D_load import Node2DLoad
 class PlaneTruss(Structure):
 
     __MAX_DOFS_PER_NODE = 2
-    __NODES_PER_ELEMENT = 2
+    __NODES_PER_ELEMENT = 4
 
     def __init__(self, nodes: Node2DList, elements: list) -> None:
         super().__init__(nodes, elements)
