@@ -1,26 +1,25 @@
-import abc
+from beam_element import Beam2D
 
 
-class ElementLoad(metaclass=abc.ABCMeta):
+class ElementLoad():
     """
-    Abstract class defining the require outputs needed to
-    assemble the fixed end moment vector for members with
-    loadings between node locations.
+    Store for element and loading data. Returns the required equivalent
+    nodal forces used to solve for the nodal displacements.
     """
 
-    @abc.abstractclassmethod
-    def equivalent_nodal_shear_left():
+    def __init__(self, element: Beam2D, load) -> None:
+        self.element = element
+        self.load = load
+
+    def equivalent_nodal_shear_left(self):
         raise NotImplementedError()
     
-    @abc.abstractclassmethod
-    def equivalent_nodal_shear_right():
+    def equivalent_nodal_shear_right(self):
         raise NotImplementedError()
     
-    @abc.abstractclassmethod
-    def equivalent_nodal_moment_left():
+    def equivalent_nodal_moment_left(self):
         raise NotImplementedError()
     
-    @abc.abstractclassmethod
-    def equivalent_nodal_moment_left():
+    def equivalent_nodal_moment_left(self):
         raise NotImplementedError()
     
