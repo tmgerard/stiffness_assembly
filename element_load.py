@@ -1,4 +1,5 @@
 from beam_element import Beam2D
+from fixed_end_force_factory import fixed_end_force_factory
 
 
 class ElementLoad():
@@ -12,14 +13,18 @@ class ElementLoad():
         self.load = load
 
     def equivalent_nodal_shear_left(self):
-        raise NotImplementedError()
+        factory = fixed_end_force_factory(self)
+        return factory.fixed_end_shear_left()
     
     def equivalent_nodal_shear_right(self):
-        raise NotImplementedError()
+        factory = fixed_end_force_factory(self)
+        return factory.fixed_end_shear_right()
     
     def equivalent_nodal_moment_left(self):
-        raise NotImplementedError()
+        factory = fixed_end_force_factory(self)
+        return factory.fixed_end_moment_left()
     
     def equivalent_nodal_moment_left(self):
-        raise NotImplementedError()
+        factory = fixed_end_force_factory(self)
+        return factory.fixed_end_moment_right()
     
