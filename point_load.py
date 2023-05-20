@@ -1,4 +1,4 @@
-class PointLoad2D():
+class PointLoad2D:
     def __init__(self, force: float, distance: float) -> None:
         self.force = force
         self.set_distance(distance)
